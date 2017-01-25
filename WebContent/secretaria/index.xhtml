@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>HISTORIAS CLINICAS</title>
+</h:head>
+<h:body style="font-size: 70%">
+	<h:form id="form1">
+		<p:commandButton value="Salir" action="#{beanUsuario.salirSistema()}" icon="ui-icon-extlink"/>
+	</h:form>
+	<p:panel id="panel1">
+	<h:form id="form2">
+		<p:panel header="Historia Clínica">
+			<p:commandButton action="#{beanHistoria.crearNuevaHistoria()}" value="CREAR HISTORIA CLÍNICA" update="form2 :form3" />
+			<p:panelGrid columns="2">
+				<h:outputText value="Fecha de la factura:" style="font-weight: bold" />
+				<h:outputText value="#{beanHistoria.historiacab.fechaHistoriacab}">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</h:outputText>
+				<h:outputText value="Seleccione el Cliente:" style="font-weight: bold" />
+				<h:panelGroup>
+					<p:selectOneMenu value="#{beanHistoria.idPacientes}">
+						<f:selectItem itemLabel="Seleccione..." itemValue="#{beanHistoria.idPacientes}" noSelectionOption="true"/>
+						<f:selectItems value="#{beanHistoria.listapacientes}" var="p" itemLabel="#{p.nombresPacientes} #{p.apellidosPacientes}" itemValue="#{p.idPacientes}"/>					
+					</p:selectOneMenu>
+				</h:panelGroup>
+				<h:outputText value="Seleccione el Médico" style="font-weight: bold" />
+				<h:panelGroup>
+					<p:selectOneMenu value="#{beanHistoria.idMedicos}">
+						<f:selectItem itemLabel="Seleccione..." itemValue="#{beanHistoria.idMedicos}" noSelectionOption="true"/>
+						<f:selectItems value="#{beanHistoria.listamedicos}" var="m" itemLabel="#{m.nombresMedicos} #{m.apellidosMedicos}" itemValue="#{m.idMedicos}"/>
+					</p:selectOneMenu>
+				</h:panelGroup>
+				<h:commandButton value="Guardar Historia"
+					action="#{beanHistoria.guardarHistoria()}" />
+				<p:messages id="mensajes" />
+				<h:commandButton value="Imprimir" rendered="#{beanHistoria.historiacabTmpGuardada}" type="button" icon="ui-icon-print">
+					<p:printer target=":panel1" />
+				</h:commandButton>
+			</p:panelGrid>
+		</p:panel>
+	</h:form>
+	<h:form id="form3">
+		<p:panel header="Detalle de historias">
+			<p:panelGrid columns="5" border="1">
+				<h:outputText value="Sintomas" />
+				<h:inputText value="#{beanHistoria.sintomasHistoriadet}" />
+				<h:outputText value="Pago por atención" />
+				<h:inputText value="#{beanHistoria.pagounitarioHistoriadet}" />
+				<p:commandButton value="Agregar"
+					action="#{beanHistoria.insertarDetalle()}" update="form3"
+					icon="ui-icon-plusthick" />
+			</p:panelGrid>
+			<p:messages id="mensajes2"></p:messages>
+			<p:dataTable value="#{beanHistoria.historiacab.historiadets}"
+				var="d" id="tablaFacturaDets">
+				<f:facet name="header">
+					<h:outputText value="Detalles" />
+				</f:facet>
+				<p:column style="width:50px">
+					<f:facet name="header">
+					NRO. DETALLE
+				</f:facet>
+					<h:outputText value="#{d.idHistoriadet}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+					SINTOMAS
+				</f:facet>
+					<h:outputText value="#{d.sintomasHistoriadet}" />
+				</p:column>
+				<p:column style="width:100px">
+					<f:facet name="header">
+					PAGO POR ATENCIONES
+				</f:facet>
+					<h:outputText value="#{d.pagounitarioHistoriadet}" />
+				</p:column>
+				<p:column style="width:120px;text-align:right">
+					<f:facet name="footer">
+						<h:panelGrid columns="2"
+							style="font-weight: bold; text-align:right">
+							<h:outputText value="TOTAL:" />
+							<h:outputText value="#{beanHistoria.historiacab.totalHistoriacab}">
+								<f:convertNumber maxFractionDigits="2" minFractionDigits="2"
+									currencySymbol="$" />
+							</h:outputText>
+						</h:panelGrid>
+					</f:facet>
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+	</h:form>
+	</p:panel>
+</h:body>
+</html>

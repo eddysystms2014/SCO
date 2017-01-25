@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>ACTUALIZACIÓN DE ROLES DE USUARIOS</title>
+</h:head>
+<body>
+	<p:panel header="Actualización de la información roles">
+		<h:form>
+			<p:panelGrid columns="2" id="panelGrid1">
+				<h:outputText value="ID:" />
+				<h:panelGroup>
+				  <h:outputText value="#{beanRoles.idRoles}" />
+				  <h:inputHidden value="#{beanRoles.idRoles}" />
+				</h:panelGroup>
+				<h:outputText value="NOMBRE:" />
+				<p:inputText value="#{beanRoles.nombreRoles}"></p:inputText>
+				<h:outputText value="DESCRIPCION:" />
+				<p:inputText value="#{beanRoles.descripcionRoles}"></p:inputText>
+				<p:messages/>
+			</p:panelGrid>
+
+			<p:commandButton value="Actualizar"
+				action="#{beanRoles.actionActualizarRol()}"
+				update="panelGrid1"></p:commandButton>
+		</h:form>
+	</p:panel>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>SCO</title>
+</h:head>
+<h:body style="font-size:70%">
+	<h:form>
+		<p:panel header="Sistema de Control Odontológico">
+			<h:panelGrid columns="2">
+				<p:menu>
+					<p:submenu label="Opciones del sistema">
+						<p:menuitem value="Ingreso de usuarios" outcome="login"
+							icon="ui-icon-locked" />
+					</p:submenu>
+					<p:submenu label="Enlaces">
+						<p:menuitem value="Primefaces" url="http://www.primefaces.org"
+							icon="ui-icon-home" />
+						<p:menuitem value="Iconos"
+							url="http://jquery-ui.googlecode.com/svn/tags/1.6rc5/tests/static/icons.html"
+							icon="ui-icon-heart" />
+					</p:submenu>
+				</p:menu>
+				<p:panel>
+					<p:panel style="text-align:center">
+						<p:graphicImage url="/images/logo.png" alt="banner"></p:graphicImage>
+					</p:panel>
+				</p:panel>
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>

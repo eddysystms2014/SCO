@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<title>PACIENTES</title>
+</h:head>
+<h:form id="formenu">
+	<p:menubar>
+		<p:menuitem value="Médicos" action="medico"></p:menuitem>
+		<p:menuitem value="Pacientes" action="paciente"></p:menuitem>
+			<f:facet name="options">
+				<p:commandButton value="Salir" action="#{beanUsuario.salirSistema()}" icon="ui-icon-extlink"/>
+			</f:facet>
+	</p:menubar>
+</h:form>
+<h:body style="font-size: 70%">
+	<h:form id="form1">
+		<p:panel header="Control de Pacientes" id="panel1">
+			<h:panelGrid columns="2">
+				<h:outputText value="Ingrese la cédula" />
+				<p:inputText id="cedula" value="#{beanPaciente.cedulaPacientes}" maxlength="10" required="true"
+					requiredMessage="Debe ingresar la cedula" />
+				<h:outputText value="Ingrese los apellidos" />
+				<p:inputText value="#{beanPaciente.apellidosPacientes}" />
+				<h:outputText value="Ingrese los nombres" />
+				<p:inputText value="#{beanPaciente.nombresPacientes}" />
+				<h:outputText value="Ingrese el domicilio" />
+				<p:inputText value="#{beanPaciente.domicilioPacientes}" />
+				<h:outputText value="Ingrese el teléfono" />
+				<p:inputText value="#{beanPaciente.telefonoPacientes}" />
+				<h:outputText value="Ingrese el número celular" />
+				<p:inputText value="#{beanPaciente.celularPacientes}" />
+				<p:commandButton action="#{beanPaciente.actionInsertarPaciente()}"
+					value="Ingresar Paciente" update="panel1 :form2" />
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
+	<h:form id="form2">
+	<p:messages></p:messages>
+	<p:dataTable border="1" value="#{beanPaciente.listapacientes}" var="p"
+		paginator="true" rows="9" id="tabla1">
+		<p:column headerText="ID">
+			<h:outputText value="#{p.idPacientes}"></h:outputText>
+		</p:column>
+		<p:column headerText="CEDULA">
+			<h:outputText value="#{p.cedulaPacientes}"></h:outputText>
+		</p:column>
+		<p:column headerText="APELLIDOS">
+			<h:outputText value="#{p.apellidosPacientes}"></h:outputText>
+		</p:column>
+		<p:column headerText="NOMBRES">
+			<h:outputText value="#{p.nombresPacientes}"></h:outputText>
+		</p:column>
+		<p:column headerText="DOMICILIO">
+			<h:outputText value="#{p.domicilioPacientes}"></h:outputText>
+		</p:column>
+		<p:column headerText="TELEFONO">
+			<h:outputText value="#{p.telefonoPacientes}"></h:outputText>
+		</p:column>
+		<p:column headerText="NRO. CELULAR">
+			<h:outputText value="#{p.celularPacientes}"></h:outputText>
+		</p:column>
+		<p:column headerText="ELIMINAR">
+			<p:commandButton icon="ui-icon-cancel"
+				action="#{beanPaciente.actionEliminarPaciente(p)}"
+				update="form2"></p:commandButton>
+		</p:column>
+		<p:column headerText="ACTUALIZAR">
+			<p:commandButton icon="ui-icon-comment"
+				action="#{beanPaciente.actionCargarPaciente(p)}"
+				update="form2"></p:commandButton>
+		</p:column>
+	</p:dataTable>
+	</h:form>
+</h:body>
+</html>

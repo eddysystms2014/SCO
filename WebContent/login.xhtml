@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Ingreso al sistema</title>
+</h:head>
+<h:body style="font-size:70%">
+	<h:form>
+		<p:panel header="Autentificación de usuarios">
+			<h:panelGrid columns="2">
+				<h:outputText value="Usuario: " />
+				<p:selectOneMenu value="#{beanUsuario.idUsuarios}">
+				<f:selectItem itemLabel="Seleccionar Usuario" itemValue=""/>
+				<f:selectItems value="#{beanUsuario.listausuarios}" var="u" itemLabel="#{u.nombreUsuarios}" itemValue="#{u.idUsuarios}"/>
+				</p:selectOneMenu>
+				<h:outputText value="Contraseña: " />
+				<p:password value="#{beanUsuario.contrasenaUsuarios}" required="true"
+					requiredMessage="Debe ingresar su contraseña" />
+				<p:commandButton value="Ingresar"
+					action="#{beanUsuario.accederSistema()}" update="mensajes"/>
+				<p:messages id="mensajes" />
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>

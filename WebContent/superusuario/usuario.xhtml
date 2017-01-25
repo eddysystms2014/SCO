@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<title>USUARIOS</title>
+</h:head>
+<h:body style="font-size: 70%">
+<h:form id="formenu">
+		<p:menubar>
+			<p:menuitem value="Usuarios" action="usuario"></p:menuitem>
+				<p:menuitem value="Roles" action="roles"></p:menuitem>
+				<f:facet name="options">
+					<p:commandButton value="Salir" action="#{beanUsuario.salirSistema()}" icon="ui-icon-extlink"/>
+				</f:facet>
+			</p:menubar>
+	</h:form>
+	<h:form id="form1">
+		<p:panel header="Control de Usuarios" id="panel1">
+			<h:panelGrid columns="2">
+				<h:outputText value="Ingrese rol de Usuario" />
+				<p:selectOneMenu value="#{beanUsuario.idRoles}">
+				<f:selectItem itemLabel="Seleccionar Rol" itemValue=""/>
+				<f:selectItems value="#{beanUsuario.listaroles}" var="rol" itemLabel="#{rol.nombreRoles}" itemValue="#{rol.idRoles}"/>
+				</p:selectOneMenu>
+				<h:outputText value="Ingrese nombre de Usuario" />
+				<p:inputText value="#{beanUsuario.nombreUsuarios}" />
+				<h:outputText value="Ingrese la contraseña" />
+				<p:inputText value="#{beanUsuario.contrasenaUsuarios}" />
+				<p:commandButton action="#{beanUsuario.actioninsertarUsuarios()}"
+					value="Ingresar Usuario del Sistema" update="panel1 :form2" />
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
+	<h:form id="form2">
+	<p:messages></p:messages>
+	<p:dataTable border="1" value="#{beanUsuario.listausuarios}" var="u"
+		paginator="true" rows="5" id="tabla1">
+		<p:column headerText="ID USUARIO">
+			<h:outputText value="#{u.idUsuarios}"></h:outputText>
+		</p:column>
+		<p:column headerText="ROL">
+			<h:outputText value="#{u.role.nombreRoles}"></h:outputText>
+		</p:column>
+		<p:column headerText="NOMBRE">
+			<h:outputText value="#{u.nombreUsuarios}"></h:outputText>
+		</p:column>
+		<p:column headerText="CONTRASEÑA">
+			<h:outputText value="#{u.contrasenaUsuarios}"></h:outputText>
+		</p:column>
+		<p:column headerText="ELIMINAR">
+			<p:commandButton icon="ui-icon-cancel"
+				action="#{beanUsuario.actioneliminarUsuario(u)}"
+				update=":form2"></p:commandButton>
+		</p:column>
+		<p:column headerText="ACTUALIZAR">
+			<p:commandButton icon="ui-icon-comment"
+				action="#{beanUsuario.actioncargarUsuarios(u)}"
+				update=":form2"></p:commandButton>
+		</p:column>
+	</p:dataTable>
+	</h:form>
+</h:body>
+</html>
